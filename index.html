@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Housie</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+   <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js"></script>
+   <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
+   
+    </head>
+    <body>
+        <p id="cc">Tap!</p>
+        <div id='coins'></div>
+        <script>
+        var ccont = document.getElementById('coins');
+    var disp = document.getElementById('cc');
+    var arr = []
+    var ind = 0;
+    for(let i=1; i<=90; i++) {
+        let coin = document.createElement('p');
+        coin.classList.add('coin');
+        coin.innerHTML = i+'';
+        coin.id = i+'';
+        ccont.appendChild(coin);
+        arr.push(i)
+    }
+    disp.onclick = () => {
+        if(ind>=90) {
+            disp.innerHTML = "Over";
+        } else {
+            playAnim(disp);
+        }
+    }
+    shuffle(arr)
+    
+    const firebaseConfig = {
+    apiKey: "AIzaSyB6VkpdT-BOW2dFWbUhMShT1BkIrG7DGNQ",
+    authDomain: "housie-a4eda.firebaseapp.com",
+    projectId: "housie-a4eda",
+    databaseURL: "https://housie-a4eda-default-rtdb.firebaseio.com/",
+    storageBucket: "housie-a4eda.appspot.com",
+    messagingSenderId: "97323392424",
+    appId: "1:97323392424:web:7fcdf93a2df244c1de119d",
+    measurementId: "G-V5X4XHGXM1"
+  };
+  firebase.initializeApp(firebaseConfig)
+  const database = firebase.database();
+  
+  const arrRef = database.ref('arr');
+
+  arrRef.set(arr)
+  
+  arrRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (Array.isArray(data)) {
+        arr = data; // Update the local array
+        console.log("Array updated from database:", arr);
+      } else {
+        console.error("Invalid data received (not an array):", data);
+      }
+    });
+        
+function playAnim(disp) {
+    var interval = setInterval(() => {
+        disp.innerHTML = Math.round(Math.random()*90+1);
+    },50)
+    let x = arr[ind]
+    ind++;
+    setTimeout(() => {
+        clearInterval(interval);
+        disp.innerHTML = x;
+        document.getElementById(x).classList.add('coinselected')
+    },950)
+}
+
+function shuffle(array) {
+  let currentIndex = array.length;
+  while (currentIndex != 0) {
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+        </script>
+    </body>
+</html>
