@@ -5,7 +5,57 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
    <script src="https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js"></script>
    <script src="https://www.gstatic.com/firebasejs/5.5.3/firebase.js"></script>
-   
+   <style>
+       body {
+    height:100%;
+    padding:10px;
+}
+
+* {
+    margin:0;
+}
+
+#cc {
+    display:flex;
+    height:30vh;
+    width:99%;
+    border:2px solid black;
+    border-radius:20px;
+    font-size:20vh;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    font-weight:900;
+    padding:0;
+    
+}
+
+#coins {
+    display:flex;
+    flex-wrap: wrap;
+    gap:5px;
+    margin-top:5px;
+}
+
+.coin {
+    display:flex;
+    width:9vw;
+    height:9vw;
+    border:1px dashed black;
+    border-radius:50%;
+    font-size:4vw;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+}
+
+.coinselected {
+    background: green;
+    color: white;
+    font-weight:900;
+}
+       
+   </style>
     </head>
     <body>
         <p id="cc">Tap!</p>
